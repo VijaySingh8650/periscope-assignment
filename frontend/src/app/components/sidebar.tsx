@@ -1,5 +1,5 @@
 import { sidebarItems } from "@/constants/constant";
-import { TypeOfSidebarItems } from "@/types";
+import { TypeOfItems } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
@@ -28,7 +28,7 @@ const Sidebar = () => {
         </section>
 
         <section className="flex flex-col gap-2">
-          {sidebarItems.map((el: TypeOfSidebarItems) => {
+          {sidebarItems.map((el: TypeOfItems) => {
             return (
               <div key={el?.id} className={`p-1 cursor-pointer flex gap-4 ${el?.label==="Groups" ? "bg-grayColor rounded-sm" : ""}`}>
                 <el.icon size={20} className={`${highlightSideBarItem(el?.label)}`}/>
@@ -41,7 +41,7 @@ const Sidebar = () => {
 
       <section className="flex gap-2">
         <Image src="/whatsapp.png" alt="whatsapp" height={20} width={20} objectFit="cover"/>
-        <p>Help & Support</p>
+        <p className="text-sm">Help & Support</p>
       </section>
 
     </section>

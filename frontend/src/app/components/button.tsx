@@ -6,7 +6,7 @@ type TypeOfButton = {
 
 const Button: React.FC<TypeOfButton> = ({children}) => {
   return (
-    <div className='flexAndGap border-1 border-gray-500 p-1 rounded-sm'>
+    <div className='flexAndGapAndCenter border-1 border-gray-300 p-1 rounded-sm'>
       {children}
     </div>
   )
