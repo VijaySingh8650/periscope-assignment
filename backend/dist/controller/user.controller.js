@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.getUser = exports.createUser = void 0;
+exports.getAllUsers = exports.deleteUser = exports.updateUser = exports.getUser = exports.createUser = void 0;
 const types_validation_1 = require("../types-validation");
 const zod_1 = require("zod");
 const prisma_1 = require("../prisma");
@@ -42,6 +42,13 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const response = yield prisma_1.prisma.user.findFirst({
                 where: {
                     id: parseInt(req.params.id)
+                },
+                include: {
+                    groups: {
+                        include: {
+                            label: true
+                        }
+                    }
                 }
             });
             if (!response)
@@ -112,3 +119,26 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.deleteUser = deleteUser;
+const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield prisma_1.prisma.user.findMany({
+            include: {
+                groups: {
+                    include: {
+                        label: true
+                    }
+                }
+            }
+        });
+        if (!response)
+            res.status(400).send({ message: "invalid id" });
+        else
+            res.status(200).send({
+                data: response
+            });
+    }
+    catch (err) {
+        res.status(500).json({ error: "Something went wrong" });
+    }
+});
+exports.getAllUsers = getAllUsers;
