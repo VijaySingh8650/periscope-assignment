@@ -45,6 +45,13 @@ export const getUser = async(req: Request, res: Response) => {
             const response = await prisma.user.findFirst({
                 where:{
                     id: parseInt(req.params.id)
+                },
+                include:{
+                    groups:{
+                        include:{
+                            label: true
+                        }
+                    }
                 }
             });
 
@@ -132,5 +139,34 @@ export const deleteUser = async(req: Request, res: Response) => {
     }
 
 
+}
+
+
+
+export const getAllUsers = async(req: Request, res: Response) => {
+    try{
+
+            const response = await prisma.user.findMany({
+                include:{
+                    groups:{
+                        include:{
+                            label: true
+                        }
+                    }
+                }
+            });
+
+            if(!response) res.status(400).send({message: "invalid id"});
+
+            else res.status(200).send({
+                data: response
+            })
+
+       
+
+    }
+    catch(err){
+        res.status(500).json({ error: "Something went wrong" });
+    }
 }
 

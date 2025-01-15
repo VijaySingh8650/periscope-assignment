@@ -15,7 +15,7 @@ model User {
   name   String
   email  String   @unique
   contactNumber String      @unique
-  Groups Groups[]
+  groups Groups[]
 }
 
 model Groups {
