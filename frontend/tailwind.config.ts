@@ -11,7 +11,17 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        grayColor: "#D3D3D3"
       },
+      borderWidth:{
+         "1": "1px",
+      },
+      borderColor:{
+        grayColor: "#D3D3D3"
+      },
+      backgroundColor:{
+        grayColor: "#D3D3D3"
+      }
     },
   },
   plugins: [],
