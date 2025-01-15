@@ -1,6 +1,6 @@
 import { LucideIcon } from "lucide-react";
 
-export  type TypeOfSidebarItems = {
+export  type TypeOfItems = {
     id: number;
     icon: LucideIcon;
     label: string;

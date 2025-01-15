@@ -1,7 +1,7 @@
-import { TypeOfSidebarItems } from '@/types';
-import { House,MessageCircleMore,Users,Contact,BellRing,File,Settings  } from 'lucide-react';
+import { TypeOfItems } from '@/types';
+import { House, MessageCircleMore, Users, Contact, BellRing, File, Settings, CircleHelp  } from 'lucide-react';
 
-export const sidebarItems:TypeOfSidebarItems[] = [
+export const sidebarItems:TypeOfItems[] = [
     {
         id: 1,
         icon: House,
@@ -38,4 +38,17 @@ export const sidebarItems:TypeOfSidebarItems[] = [
         label: 'Settings',
     },  
     
+]
+
+export const headerItems:TypeOfItems[] = [
+    {
+        id: 1,
+        icon: CircleHelp,
+        label: 'Docs',
+    },
+    {
+        id: 2,
+        icon: BellRing,
+        label: '',
+    }
 ]
