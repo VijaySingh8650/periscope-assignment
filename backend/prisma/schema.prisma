@@ -1,0 +1,44 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id     Int      @id @default(autoincrement())
+  name   String
+  email  String   @unique
+  contactNumber String      @unique
+  Groups Groups[]
+}
+
+model Groups {
+  id         Int         @id @default(autoincrement())
+  name       String
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id],  onDelete: Cascade)
+  type       ProjectType
+  members    Int         @default(0)
+  lastActive DateTime    @default(now())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  label      Labels[]
+}
+
+model Labels {
+  id        Int       @id @default(autoincrement())
+  name      String
+  groupId   Int
+  group    Groups  @relation(fields: [groupId], references: [id],  onDelete: Cascade)
+}
+
+enum ProjectType {
+  Demo
+  Clients
+}
