@@ -1,5 +1,5 @@
 import { TypeOfItems } from '@/types';
-import { House, MessageCircleMore, Users, Contact, BellRing, File, Settings, CircleHelp  } from 'lucide-react';
+import { House, MessageCircleMore, Circle,  Users, Contact, BellRing, File, Settings, CircleHelp  } from 'lucide-react';
 
 export const sidebarItems:TypeOfItems[] = [
     {
@@ -48,7 +48,48 @@ export const headerItems:TypeOfItems[] = [
     },
     {
         id: 2,
+        icon: Circle,
+        label: '',
+    },
+    {
+        id: 3,
         icon: BellRing,
         label: '',
+    }
+];
+
+
+export const tableHeader = [
+    {
+        id: 0,
+        name: ""
+    },
+    {
+        id: 1,
+        name: "Group Name"
+    },
+    {
+
+        id: 2,
+        name: "Project"
+
+    },
+    {
+
+        id: 3,
+        name: "Labels"
+
+    },
+    {
+
+        id: 4,
+        name: "Members"
+
+    },
+    {
+
+        id: 5,
+        name: "Last Active"
+
     }
 ]

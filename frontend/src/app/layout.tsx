@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Sidebar from "./components/sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,9 +29,9 @@ export default function RootLayout({
         <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       > 
-        <Sidebar/>
+       
         {children}
       </body>
     </html>

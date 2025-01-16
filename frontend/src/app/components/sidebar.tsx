@@ -5,7 +5,12 @@ import React from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { highlightSideBarItem } from "@/utils";
 
-const Sidebar = () => {
+
+type TypeOfSidebarProps = {
+  email: string;
+};
+
+const Sidebar:React.FC<TypeOfSidebarProps> = ({email}) => {
 
 
   return (
@@ -18,7 +23,7 @@ const Sidebar = () => {
 
           <div className="flex flex-col gap-1 leading-4">
             <h1 className="font-bold">Periskope</h1>
-            <p className="text-xs text-gray-500">bharat@hashlabs.dev</p>
+            <p className="text-xs text-gray-500">{email}</p>
           </div>
 
           <div className="leading-3">
@@ -31,7 +36,7 @@ const Sidebar = () => {
           {sidebarItems.map((el: TypeOfItems) => {
             return (
               <div key={el?.id} className={`p-1 cursor-pointer flex gap-4 ${el?.label==="Groups" ? "bg-grayColor rounded-sm" : ""}`}>
-                <el.icon size={20} className={`${highlightSideBarItem(el?.label)}`}/>
+                <el.icon  size={20} className={`${highlightSideBarItem(el?.label)}`}/>
                 <p className={`text-sm  ${highlightSideBarItem(el?.label)}`}>{el?.label}</p>
               </div>
             );
