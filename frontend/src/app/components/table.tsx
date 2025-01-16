@@ -1,4 +1,6 @@
 import { TypeOfGroupsResponse, TypeOfHeader, TypeOfLabelsResponse } from "@/types";
+import { getRelativeTime } from "@/utils";
+import { User } from "lucide-react";
 import React from "react";
 
 type TypeOfPageProps = {
@@ -45,8 +47,14 @@ const Table: React.FC<TypeOfPageProps> = ({ tableHeader, data, handleGroupChange
                 <td className="text-left  py-2 px-4 text-sm">
                   <div className="h-3 w-3 border-1 border-grayColor rounded-sm"></div>
                 </td>
-                <td className="text-left  py-2 text-sm w-[300px] whitespace-nowrap">
-                   {item?.name}
+                <td className="text-left  py-2 text-sm w-[300px] whitespace-nowrap flexAndGapAndCenter">
+                   <User size={15}/>
+                    <p>
+
+                    {item?.name}
+
+                    </p>
+                  
                 </td>
 
                 <td className="text-left  py-2">
@@ -76,7 +84,7 @@ const Table: React.FC<TypeOfPageProps> = ({ tableHeader, data, handleGroupChange
                 </td>
 
                 <td className="text-left  py-2 text-sm whitespace-nowrap">
-                  {item?.lastActive}
+                  {getRelativeTime(item?.lastActive)}
                 </td>
 
               </tr>

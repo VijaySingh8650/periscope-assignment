@@ -1,4 +1,4 @@
-import { TypeOfItems } from '@/types';
+import { TypeOfHeader, TypeOfItems } from '@/types';
 import { House, MessageCircleMore, Circle,  Users, Contact, BellRing, File, Settings, CircleHelp  } from 'lucide-react';
 
 export const sidebarItems:TypeOfItems[] = [
@@ -59,7 +59,7 @@ export const headerItems:TypeOfItems[] = [
 ];
 
 
-export const tableHeader = [
+export const tableHeader: TypeOfHeader[] = [
     {
         id: 0,
         name: ""
@@ -91,5 +91,20 @@ export const tableHeader = [
         id: 5,
         name: "Last Active"
 
+    }
+]
+
+export const sidePanelTabs:TypeOfHeader[] = [
+    {
+        id: 1,
+        name:"Overview"
+    },
+    {
+        id: 2,
+        name:"Members"
+    },
+    {
+        id: 3,
+        name:"Logs"
     }
 ]
