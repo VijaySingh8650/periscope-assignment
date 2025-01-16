@@ -2,16 +2,18 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+	],
   theme: {
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        grayColor: "#D3D3D3"
+        grayColor: "#D3D3D3",
+        greenColor: "#16b450"
       },
       borderWidth:{
          "1": "1px",
@@ -20,7 +22,9 @@ const config: Config = {
         grayColor: "#D3D3D3"
       },
       backgroundColor:{
-        grayColor: "#D3D3D3"
+        grayColor: "#D3D3D3",
+        lightGrayColor: "#F9FAFB",
+        mediumGrayColor: "#edf0f3"
       }
     },
   },

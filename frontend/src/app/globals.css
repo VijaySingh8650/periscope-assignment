@@ -16,3 +16,5 @@ html {
 .flexAndGapAndCenter{
   @apply flex gap-2 items-center
 }
+
+

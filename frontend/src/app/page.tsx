@@ -1,35 +1,40 @@
-import {Users} from 'lucide-react';
-import Button from './components/button';
-import { headerItems } from '@/constants/constant';
-import { TypeOfItems } from '@/types';
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import LoadingComponent from "./loading";
+import Home from "@/client-side-pages/home";
+
+
+ async function AsyncPage() {
+  try{
+
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL+"/user/2");
+    const data = await response.json();
+
+    if(response?.status!==200){
+      return notFound();
+    }
+    console.log(data, "sdlksd")
+    return <Home data={data?.data}/>
+
+  }
+  catch(err){
+    console.error(err);
+    notFound();
+  }
+ 
+}
+
+export default function Page() {
   return (
-    <section className="pt-4 w-full">
-
-      {/* selected-sidebar-item */}
-      <section className='flexAndGapAndCenter justify-between pl-4 pr-4 pt-4 pb-2 border-b-1 border-b-grayColor'>
-        
-        <div className='flexAndGapAndCenter'>        
-          <Users size={20}/>
-          <p className='text-sm'>Groups</p>
-        </div>
-
-        <div className='flexAndGapAndCenter'>
-          {
-            headerItems?.map((el: TypeOfItems)=>{
-              return <Button key={el?.id}>
-                <el.icon size={20}/>
-                {el?.label && <p className='text-sm'>{el?.label}</p>}
-            </Button>
-            })
-          }
-        </div>
-
-      </section>
-      
 
 
-    </section>
+      <Suspense fallback={<LoadingComponent/>}>
+
+        <AsyncPage/>
+
+      </Suspense>
+
   );
 }
