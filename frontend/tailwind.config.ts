@@ -13,7 +13,8 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         grayColor: "#D3D3D3",
-        greenColor: "#16b450"
+        greenColor: "#16b450",
+        darkGrayColor: "#a7b5c4"
       },
       borderWidth:{
          "1": "1px",

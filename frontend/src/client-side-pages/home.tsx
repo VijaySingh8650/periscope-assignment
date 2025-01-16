@@ -8,6 +8,7 @@ import Button from "@/app/components/button";
 import Filteration from "@/app/components/filter";
 import Table from "@/app/components/table";
 import { useEffect, useRef, useState } from "react";
+import SidePanel from "@/app/components/sidepanel";
 
 type TypeOfPageProps = {
   data: TypeOfHomeResponse;
@@ -38,7 +39,7 @@ const Page: React.FC<TypeOfPageProps> = ({ data }) => {
     }, 500);
 
     return () => {
-        
+
         if(timeoutRef.current !== null){
 
             clearTimeout(timeoutRef.current);
@@ -95,7 +96,7 @@ const Page: React.FC<TypeOfPageProps> = ({ data }) => {
         <section className="w-full flex">
           {/* filter-and-table */}
 
-          <section className="border-r-1 border-r-grayColor border-b-1 border-b-grayColor w-[80%]">
+          <section className="border-r-1 border-r-grayColor border-b-1 border-b-grayColor w-[75%]">
             <Filteration handleSearch={handleSearch} search={search} />
 
             <Table
@@ -111,7 +112,16 @@ const Page: React.FC<TypeOfPageProps> = ({ data }) => {
             />
           </section>
 
-          <section className="w-[20%]">dksbbf</section>
+          <section className="w-[25%]">
+            <SidePanel
+               
+               data ={
+                data?.groups?.filter((el)=>el.id===selectedGroup)
+               }
+            
+            />
+          </section>
+
         </section>
       </section>
     </section>
