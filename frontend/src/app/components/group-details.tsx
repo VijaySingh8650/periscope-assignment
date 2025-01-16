@@ -19,7 +19,7 @@ const GroupDetails: React.FC<TypeOfPageProps> = ({ data }) => {
           <p className="text-sm text-gray-500">Labels</p>
         </div>
         <div className="w-2/5 flex flex-col gap-2">
-          <p className="text-sm">{getRelativeTime(data?.[0]?.lastActive)}</p>
+          <p className="text-sm whitespace-nowrap">{getRelativeTime(data?.[0]?.lastActive)}</p>
           <div className="flex gap-2">
             <p className="text-sm">OFF</p>
             <div className="leading-3">
