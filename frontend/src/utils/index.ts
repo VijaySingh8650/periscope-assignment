@@ -4,29 +4,67 @@ export const highlightSideBarItem = (label : string) => {
 
 
 export function getRelativeTime(timestamp: string): string {
-    const currentDate: Date = new Date();
-    
-    // Convert the provided timestamp to IST (Indian Standard Time, UTC +5:30)
-    const date: Date = new Date(timestamp);
-    const IST_offset: number = 5.5 * 60 * 60 * 1000;  // IST is UTC +5:30
-    date.setTime(date.getTime() + IST_offset);
-
-    // Calculate the difference in time
-    const diffInSeconds: number = (currentDate.getTime() - date.getTime()) / 1000;
-
-    const rtf: Intl.RelativeTimeFormat = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-
-    if (diffInSeconds < 60) {
-        return rtf.format(-Math.floor(diffInSeconds), 'second');
-    } else if (diffInSeconds < 3600) {
-        return rtf.format(-Math.floor(diffInSeconds / 60), 'minute');
-    } else if (diffInSeconds < 86400) {
-        return rtf.format(-Math.floor(diffInSeconds / 3600), 'hour');
-    } else if (diffInSeconds < 172800) {
-        return 'yesterday';
-    } else if (diffInSeconds < 2592000) {
-        return rtf.format(-Math.floor(diffInSeconds / 86400), 'day');
-    } else {
-        return rtf.format(-Math.floor(diffInSeconds / 2592000), 'month');
+    const now = new Date();
+    const date = new Date(timestamp);
+  
+    // Convert difference to seconds
+    let diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  
+ 
+    if (diffInSeconds < 0) {
+      diffInSeconds = 0;
     }
-}
+  
+    // Less than 1 minute
+    if (diffInSeconds < 60) {
+      return "Just now";
+    }
+  
+    // Convert to minutes
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
+      // e.g., "1 minute ago" or "2 minutes ago"
+      return diffInMinutes === 1
+        ? "1 minute ago"
+        : `${diffInMinutes} minutes ago`;
+    }
+  
+    // Convert to hours
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
+      return diffInHours === 1
+        ? "1 hour ago"
+        : `${diffInHours} hours ago`;
+    }
+  
+    // Convert to days
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) {
+      return diffInDays === 1
+        ? "Yesterday"
+        : `${diffInDays} days ago`;
+    }
+  
+    // Convert to weeks
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks < 4) {
+      return diffInWeeks === 1
+        ? "1 week ago"
+        : `${diffInWeeks} weeks ago`;
+    }
+  
+    // Convert to months (approx)
+    const diffInMonths = Math.floor(diffInDays / 30);
+    if (diffInMonths < 12) {
+      return diffInMonths === 1
+        ? "1 month ago"
+        : `${diffInMonths} months ago`;
+    }
+  
+    // Convert to years (approx)
+    const diffInYears = Math.floor(diffInMonths / 12);
+    return diffInYears === 1
+      ? "1 year ago"
+      : `${diffInYears} years ago`;
+  }
+  
