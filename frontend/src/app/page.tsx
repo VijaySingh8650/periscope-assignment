@@ -9,7 +9,9 @@ import Home from "@/client-side-pages/home";
  async function AsyncPage() {
   try{
 
-    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL+"/user/2");
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL+"/user/2", {
+      cache: 'no-store',
+    });
     const data = await response.json();
 
     if(response?.status!==200){
