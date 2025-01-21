@@ -1,26 +1,44 @@
 import { sidePanelTabs } from "@/constants/constant";
-import { TypeOfGroupsResponse } from "@/types";
 
-import {
-  User,
-  RefreshCw
-} from "lucide-react";
-import React from "react";
+import { User, RefreshCw } from "lucide-react";
+import React, { useContext, useEffect, useState } from "react";
 import GroupDetails from "./group-details";
 import ExportExitButton from "./export-exit";
+import { CreateContext } from "@/contextAPI";
+import { TypeOfGroupsResponse, TypeOfHeader } from "@/types";
 
 type TypeOfPageProps = {
-  data: TypeOfGroupsResponse[];
+  selectedGroup: number | null;
 };
 
-const SidePanel: React.FC<TypeOfPageProps> = ({ data }) => {
+const SidePanel: React.FC<TypeOfPageProps> = ({ selectedGroup }) => {
+  const { data } = useContext(CreateContext);
+  const [selectedGroupDetail, setSelectedGroupDetail] = useState<
+    TypeOfGroupsResponse[]
+  >([]);
+
+  useEffect(() => {
+    const filterData: TypeOfGroupsResponse[] = data?.groups?.filter(
+      (item) => item.id === selectedGroup
+    );
+
+    if (filterData?.length > 0) {
+      setSelectedGroupDetail(filterData);
+    } else {
+      setSelectedGroupDetail([]);
+    }
+  }, [data, selectedGroup]);
+
+
   return (
     <section>
       {/* heading */}
       <section className="m-4 flexAndGapAndCenter justify-between">
         <div className="flexAndGapAndCenter">
           <User size={20} />
-          <h1 className="text-sm font-semibold">{data?.[0]?.name}</h1>
+          <h1 className="text-sm font-semibold">
+            {selectedGroupDetail?.[0]?.name || ""}
+          </h1>
         </div>
         <div className="flexAndGapAndCenter">
           <RefreshCw size={15} className="text-grayColor" />
@@ -30,12 +48,14 @@ const SidePanel: React.FC<TypeOfPageProps> = ({ data }) => {
 
       {/* tabs */}
       <section className="flex items-center gap-6 px-4 border-b-1 border-grayColor">
-        {sidePanelTabs?.map((el) => {
+        {sidePanelTabs?.map((el:TypeOfHeader, index:number) => {
           return (
             <button
               key={el?.id}
               className={`text-sm ${
-                el?.id === data?.[0]?.id ? "border-b-2 border-b-greenColor" : ""
+                index===0
+                  ? "border-b-2 border-b-greenColor"
+                  : ""
               }`}
             >
               {el?.name}
@@ -44,11 +64,17 @@ const SidePanel: React.FC<TypeOfPageProps> = ({ data }) => {
         })}
       </section>
 
-      {/* details of a group */}
-      <GroupDetails data={data} />
+      {selectedGroupDetail?.length > 0 ? (
+        <>
+          {/* details of a group */}
+          <GroupDetails data={selectedGroupDetail} />
 
-      {/* export & Exit buttons */}
-      <ExportExitButton/>
+          {/* export & Exit buttons */}
+          <ExportExitButton />
+        </>
+      ) : (
+        <p className="text-center py-4 text-sm">Loading...</p>
+      )}
     </section>
   );
 };

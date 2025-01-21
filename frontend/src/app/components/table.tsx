@@ -7,12 +7,12 @@ import React, { useContext } from "react";
 type TypeOfPageProps = {
   tableHeader: TypeOfHeader[];
   handleGroupChange: (id:number) => void;
-  selectedGroup: number;
+  selectedGroup: number | null;
 };
 
 const Table: React.FC<TypeOfPageProps> = ({ tableHeader, handleGroupChange, selectedGroup }) => {
 
-  const {data} = useContext(CreateContext);
+  const {data, loading} = useContext(CreateContext);
 
 
 
@@ -101,7 +101,7 @@ const Table: React.FC<TypeOfPageProps> = ({ tableHeader, handleGroupChange, sele
           ) : (
             <tr>
               <td colSpan={tableHeader.length} className="text-center py-4">
-                No data available
+                {loading ? "Loading..." : "No data available"}
               </td>
             </tr>
           )}

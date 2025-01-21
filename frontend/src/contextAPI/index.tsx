@@ -5,12 +5,13 @@ import { TypeOfHomeResponse } from '@/types';
 import React, { useEffect, useState } from 'react';
 
 type TypeOfProps = {
-
+    loading: boolean;
     data: TypeOfHomeResponse ;
 
 }
 
 const initialState:TypeOfProps = {
+    loading: true,
     data: {
          id: null,
             name: "",
@@ -29,12 +30,18 @@ type TypeOfPageProps = {
 
 export default function ContextProvider({children}:TypeOfPageProps){
 
-   const [data, setData]  = useState<TypeOfHomeResponse>({
-    id: null,
+   const [data, setData]  = useState<TypeOfProps>({
+    loading: true,
+    data:{
+
+        id: null,
        name: "",
        email: "",
        contactNumber: "",
        groups:[]
+
+    }
+    
 });
 
     async function callAPI () {
@@ -46,8 +53,8 @@ export default function ContextProvider({children}:TypeOfPageProps){
               });
             const resBody = await response.json();
 
-
-            setData(resBody?.data);
+          
+            setData({data: resBody?.data, loading:false});
 
         }
         catch(err){
@@ -67,7 +74,7 @@ export default function ContextProvider({children}:TypeOfPageProps){
     
 
     return(
-       <CreateContext.Provider value={{data}}>
+       <CreateContext.Provider value={{loading: data?.loading, data: data?.data}}>
 
          {children}
 

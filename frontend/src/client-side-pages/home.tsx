@@ -7,7 +7,7 @@ import Sidebar from "@/app/components/sidebar";
 import Button from "@/app/components/button";
 import Filteration from "@/app/components/filter";
 import Table from "@/app/components/table";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SidePanel from "@/app/components/sidepanel";
 import { CreateContext } from "@/contextAPI";
 
@@ -18,9 +18,7 @@ const Page = () => {
   const {data} = useContext(CreateContext);
 
 
-  const [selectedGroup, setSelectedGroup] = useState<number>(
-    data?.groups?.[0]?.id
-  );
+  const [selectedGroup, setSelectedGroup] = useState<number | null>(null );
 
   const [search, setSearch] = useState<string>("");
 
@@ -32,6 +30,15 @@ const Page = () => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event?.target?.value);
   };
+
+
+  useEffect(()=>{
+
+    setSelectedGroup(data?.groups?.[0]?.id);
+
+  },[data]);
+
+
 
   return (
     <section className="w-full flex">
@@ -81,10 +88,9 @@ const Page = () => {
 
           <section className="w-[25%]">
             <SidePanel
+            selectedGroup={selectedGroup}
                
-               data ={
-                data?.groups?.filter((el)=>el.id===selectedGroup)
-               }
+              
             
             />
           </section>
