@@ -25,7 +25,7 @@ export type TypeOfGroupsResponse = {
 }
 
 export type TypeOfHomeResponse = {
-    id: number;
+    id: number | null;
     name: string;
     email: string;
     contactNumber: string;

@@ -8,6 +8,7 @@ type TypeOfPageProps = {
 };
 
 const GroupDetails: React.FC<TypeOfPageProps> = ({ data }) => {
+  
   return (
     <section className="w-[100%] p-4 border-b-1 border-b-grayColor flex gap-4">
       

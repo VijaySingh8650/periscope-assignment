@@ -1,16 +1,20 @@
+import { CreateContext } from "@/contextAPI";
 import { TypeOfGroupsResponse, TypeOfHeader, TypeOfLabelsResponse } from "@/types";
 import { getRelativeTime } from "@/utils";
 import { User } from "lucide-react";
-import React from "react";
+import React, { useContext } from "react";
 
 type TypeOfPageProps = {
   tableHeader: TypeOfHeader[];
-  data: TypeOfGroupsResponse[];
   handleGroupChange: (id:number) => void;
-  selectedGroup: number;
+  selectedGroup: number | null;
 };
 
-const Table: React.FC<TypeOfPageProps> = ({ tableHeader, data, handleGroupChange, selectedGroup }) => {
+const Table: React.FC<TypeOfPageProps> = ({ tableHeader, handleGroupChange, selectedGroup }) => {
+
+  const {data, loading} = useContext(CreateContext);
+
+
 
   return (
     <section className="overflow-auto h-[80vh] bg-white border-r-1 border-r-grayColor">
@@ -41,8 +45,13 @@ const Table: React.FC<TypeOfPageProps> = ({ tableHeader, data, handleGroupChange
         </thead>
 
         <tbody className="text-center ">
-          {data?.length > 0 ? (
-            data?.map((item: TypeOfGroupsResponse) => (
+          {data?.groups?.length > 0 ? (
+            data?.groups?.map((el)=>{
+              return {
+                checkbox: true,
+                ...el
+              }
+            })?.map((item: TypeOfGroupsResponse) => (
               <tr  key={item.id} onClick={()=>handleGroupChange(item?.id)} className={`${selectedGroup===item.id ? "bg-mediumGrayColor" : ""} border-b-1 border-b-grayColor cursor-pointer`}>
                 <td className="text-left  py-2 px-4 text-sm">
                   <div className="h-3 w-3 border-1 border-grayColor rounded-sm"></div>
@@ -92,7 +101,7 @@ const Table: React.FC<TypeOfPageProps> = ({ tableHeader, data, handleGroupChange
           ) : (
             <tr>
               <td colSpan={tableHeader.length} className="text-center py-4">
-                No data available
+                {loading ? "Loading..." : "No data available"}
               </td>
             </tr>
           )}

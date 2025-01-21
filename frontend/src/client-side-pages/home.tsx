@@ -2,52 +2,26 @@
 
 import { Users } from "lucide-react";
 import { headerItems, tableHeader } from "@/constants/constant";
-import { TypeOfGroupsResponse, TypeOfHomeResponse, TypeOfItems } from "@/types";
+import { TypeOfItems } from "@/types";
 import Sidebar from "@/app/components/sidebar";
 import Button from "@/app/components/button";
 import Filteration from "@/app/components/filter";
 import Table from "@/app/components/table";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SidePanel from "@/app/components/sidepanel";
+import { CreateContext } from "@/contextAPI";
 
-type TypeOfPageProps = {
-  data: TypeOfHomeResponse;
-};
 
-const Page: React.FC<TypeOfPageProps> = ({ data }) => {
 
-  const [groupsData, setGroupsData] = useState<TypeOfGroupsResponse[]>(
-    data?.groups
-  );
-  const [selectedGroup, setSelectedGroup] = useState<number>(
-    data?.groups?.[0]?.id
-  );
+const Page = () => {
+ 
+  const {data} = useContext(CreateContext);
+
+
+  const [selectedGroup, setSelectedGroup] = useState<number | null>(null );
 
   const [search, setSearch] = useState<string>("");
-  const timeoutRef = useRef<number | null>(null);
 
-
-  useEffect(() => {
-    timeoutRef.current = window.setTimeout(() => {
-      if (search) {
-
-        const filterData = data?.groups?.filter((el)=>el.name.toLowerCase().startsWith(search.toLowerCase()))
-        setGroupsData(filterData);
-        
-
-      }
-    }, 500);
-
-    return () => {
-
-        if(timeoutRef.current !== null){
-
-            clearTimeout(timeoutRef.current);
-
-        }
-       
-    };
-  }, [search]);
 
   const handleGroupChange = (id: number) => {
     setSelectedGroup(id);
@@ -55,10 +29,16 @@ const Page: React.FC<TypeOfPageProps> = ({ data }) => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event?.target?.value);
-    if(!event?.target?.value){
-        setGroupsData(data?.groups);
-    }
   };
+
+
+  useEffect(()=>{
+
+    setSelectedGroup(data?.groups?.[0]?.id);
+
+  },[data]);
+
+
 
   return (
     <section className="w-full flex">
@@ -101,12 +81,6 @@ const Page: React.FC<TypeOfPageProps> = ({ data }) => {
 
             <Table
               tableHeader={tableHeader}
-              data={groupsData?.map((el) => {
-                return {
-                  checkbox: true,
-                  ...el,
-                };
-              })}
               handleGroupChange={handleGroupChange}
               selectedGroup={selectedGroup}
             />
@@ -114,10 +88,9 @@ const Page: React.FC<TypeOfPageProps> = ({ data }) => {
 
           <section className="w-[25%]">
             <SidePanel
+            selectedGroup={selectedGroup}
                
-               data ={
-                data?.groups?.filter((el)=>el.id===selectedGroup)
-               }
+              
             
             />
           </section>
