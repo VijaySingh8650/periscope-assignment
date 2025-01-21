@@ -19,6 +19,7 @@ table's row can be clicked and its detail view can be seen in side panel.
 
 
 ## Backend URL
+(The backend can be slow initially due to a cold start.)
 `https://periscope-zjyn.onrender.com/api`
 
 ### Tech Stack - 
