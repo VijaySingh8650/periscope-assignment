@@ -3,16 +3,16 @@
 
 ### Tech Stack - 
 ``` 
-NextJS (App router along with React server component)
+NextJS
 TypeScript
-Tailwind CSS 
+Tailwind CSS
+Context API
 
 ```
 ### Feature
 ```
 Side bar will show all the menu items like groups, deashbaord and so on. 
-Through search input field, group name can be searched.
-table's row can be clicked and its detail view can be seen in side panel.
+Table's row can be clicked and its detail view can be seen in side panel.
 
 ```
 
