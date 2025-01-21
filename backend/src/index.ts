@@ -14,7 +14,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: ["http://localhost:3000", "https://periscope-assignment.vercel.app/"], 
+    origin: ["http://localhost:3000", "https://periscope-assignment.vercel.app"], 
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }));
 
